@@ -42,7 +42,6 @@ public class EmprestimoService {
 
         LocalDate dataInicial = request.getDataInicial();
         LocalDate dataFinal = request.getDataFinal();
-        LocalDate primeiroPagamento = request.getPrimeiroPagamento();
 
         datas.add(dataInicial);
 
@@ -57,39 +56,35 @@ public class EmprestimoService {
                     .with(TemporalAdjusters.lastDayOfMonth());
         }
 
-        int diaPagamento = primeiroPagamento.getDayOfMonth();
-        LocalDate pagamento = primeiroPagamento;
-
-        while (pagamento.isBefore(dataFinal)) {
-            datas.add(pagamento);
-
-            YearMonth mes = YearMonth.from(pagamento).plusMonths(1);
-            int dia = Math.min(diaPagamento, mes.lengthOfMonth());
-
-            pagamento = mes.atDay(dia);
-        }
-
-        datas.add(dataFinal);
+        datas.addAll(gerarDatasPagamento(request));
 
         return new ArrayList<>(datas);
     }
 
     private int calcularQuantidadeParcelas(CalculoEmprestimoRequest request) {
+        return gerarDatasPagamento(request).size();
+    }
+
+    private Set<LocalDate> gerarDatasPagamento(CalculoEmprestimoRequest request) {
+        Set<LocalDate> pagamentos = new TreeSet<>();
+
         LocalDate primeiroPagamento = request.getPrimeiroPagamento();
         LocalDate dataFinal = request.getDataFinal();
 
-        int quantidade = 0;
         int diaPagamento = primeiroPagamento.getDayOfMonth();
         LocalDate pagamento = primeiroPagamento;
 
         while (pagamento.isBefore(dataFinal)) {
-            quantidade++;
+            pagamentos.add(pagamento);
 
             YearMonth mes = YearMonth.from(pagamento).plusMonths(1);
             int dia = Math.min(diaPagamento, mes.lengthOfMonth());
 
             pagamento = mes.atDay(dia);
         }
-        return quantidade + 1;
+
+        pagamentos.add(dataFinal);
+
+        return pagamentos;
     }
 }
