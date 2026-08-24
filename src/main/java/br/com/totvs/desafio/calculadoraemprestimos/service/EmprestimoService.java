@@ -149,7 +149,12 @@ public class EmprestimoService {
             boolean ehPagamento = datasPagamento.contains(data);
 
             if (ehPagamento) {
-                amortizacao = amortizacaoBase;
+                //amortizacao = amortizacaoBase;
+                if (saldoPrincipal.compareTo(amortizacaoBase) <= 0) {
+                    amortizacao = saldoPrincipal;
+                } else {
+                    amortizacao = amortizacaoBase;
+                }
 
                 jurosPagos = jurosAcumulados
                         .add(provisao, MC);
