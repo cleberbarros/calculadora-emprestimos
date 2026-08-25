@@ -93,3 +93,69 @@ button:disabled {
   font-size: 0.9375rem;
   color: #a33;
 }
+
+/* Seção de resultado com tabela */
+.resultado-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.resultado-section .resultado {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f0f7f0;
+  border: 1px solid #c3e6c3;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.resultado-section .resultado p {
+  margin: 0;
+  font-size: 1rem;
+  color: #2d6b2d;
+}
+
+.tabela-wrapper {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+thead {
+  background-color: #f5f7fa;
+}
+
+th {
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  text-align: left;
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  color: #444;
+}
+
+tbody tr:hover {
+  background-color: #f9fbfd;
+}
+
+.col-data {
+  text-align: center;
+}
+
+.col-valor {
+  text-align: right;
+}

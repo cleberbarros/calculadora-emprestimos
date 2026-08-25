@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CurrencyPipe, DatePipe, registerLocaleData } from '@angular/common';
+import localePtBr from '@angular/common/locales/pt';
 import { EmprestimoService } from './services/emprestimo.service';
 import { CalculoEmprestimoRequest } from './models/calculo-emprestimo-request';
 import { CalculoEmprestimoResponse } from './models/calculo-emprestimo-response';
 
+registerLocaleData(localePtBr, 'pt-BR');
+
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe, DatePipe],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

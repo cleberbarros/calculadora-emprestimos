@@ -32,15 +32,52 @@
     </button>
   </form>
 
-  @if (resultado) {
-    <div class="resultado">
-      <p>Quantidade de parcelas: <strong>{{ resultado.quantidadeParcelas }}</strong></p>
-    </div>
-  }
-
   @if (erro) {
     <div class="erro">
       <p>{{ erro }}</p>
     </div>
   }
 </div>
+
+@if (resultado) {
+  <div class="resultado-section">
+    <div class="resultado">
+      <p>Quantidade de parcelas: <strong>{{ resultado.quantidadeParcelas }}</strong></p>
+    </div>
+
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-data">Data</th>
+            <th class="col-valor">Valor do Empréstimo</th>
+            <th class="col-valor">Saldo Devedor</th>
+            <th class="col-valor">Parcela</th>
+            <th class="col-valor">Total</th>
+            <th class="col-valor">Amortização</th>
+            <th class="col-valor">Saldo Principal</th>
+            <th class="col-valor">Provisão</th>
+            <th class="col-valor">Juros Acumulados</th>
+            <th class="col-valor">Juros Pagos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (parcela of resultado.parcelas; track parcela.data) {
+            <tr>
+              <td class="col-data">{{ parcela.data | date:'dd/MM/yyyy' }}</td>
+              <td class="col-valor">{{ parcela.valorEmprestimo | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.saldoDevedor | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.parcela | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.total | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.amortizacao | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.saldoPrincipal | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.provisao | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.jurosAcumulados | currency:'BRL':'symbol':'1.2-2' }}</td>
+              <td class="col-valor">{{ parcela.jurosPagos | currency:'BRL':'symbol':'1.2-2' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}
