@@ -63,7 +63,7 @@
         </thead>
         <tbody>
           @for (parcela of resultado.parcelas; track parcela.data) {
-            <tr>
+            <tr [class.linha-pagamento]="parcela.amortizacao > 0">
               <td class="col-data">{{ parcela.data | date:'dd/MM/yyyy' }}</td>
               <td class="col-valor">{{ parcela.valorEmprestimo | currency:'BRL':'symbol':'1.2-2' }}</td>
               <td class="col-valor">{{ parcela.saldoDevedor | currency:'BRL':'symbol':'1.2-2' }}</td>
