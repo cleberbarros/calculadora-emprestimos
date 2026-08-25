@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [provideHttpClient()]
     }).compileComponents();
   });
 
@@ -14,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'frontend' title`, () => {
+  it('should have an invalid form when empty', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+    expect(app.formulario.invalid).toBeTrue();
   });
 
-  it('should render title', () => {
+  it('should render the title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Calculadora de Empréstimos');
   });
 });
